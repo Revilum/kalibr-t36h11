@@ -129,7 +129,7 @@ bool GridCalibrationTargetAprilgrid::computeObservation(
       remove |= true;
 
     //also remove if the tag ID is out-of-range for this grid (faulty detection)
-    if (iter->id >= (int) size() / 4)
+    if (iter->id < 36 || iter->id > 84)
       remove |= true;
 
     // delete flagged tags
@@ -282,7 +282,7 @@ bool GridCalibrationTargetAprilgrid::computeObservation(
 
   for (unsigned int i = 0; i < detections.size(); i++) {
     // get the tag id
-    unsigned int tagId = detections[i].id;
+    unsigned int tagId = detections[i].id - 36;
 
     // calculate the grid idx for all four tag corners given the tagId and cols
     unsigned int baseId = (int) (tagId / (_cols / 2)) * _cols * 2
